@@ -1,0 +1,12 @@
+# Decode the encrypted data
+decoded_data = base64.b64decode(encrypted_data)
+# Extract the nonce, tag, and ciphertext
+nonce = decoded_data[:16]
+tag = decoded_data[16:32]
+ciphertext = decoded_data[32:]
+# Create a new cipher for decryption
+cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
+# Decrypt the data
+decrypted_data = cipher.decrypt_and_verify(ciphertext, tag)
+# Output the decrypted data
+print("Decrypted data:", decrypted_data.decode())
