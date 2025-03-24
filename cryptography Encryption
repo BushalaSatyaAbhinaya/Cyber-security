@@ -1,0 +1,16 @@
+!pip install pycryptodome
+#Encypting code
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+import base64
+# Generate a random key
+key = get_random_bytes(16) # AES key must be either 16, 24, or 32 bytes long
+# Create a new AES cipher
+cipher = AES.new(key, AES.MODE_EAX)
+# Encrypt the data
+data = b'Hello, World!'
+ciphertext, tag = cipher.encrypt_and_digest(data)
+# Output the encrypted data
+nonce = cipher.nonce
+encrypted_data = base64.b64encode(nonce + tag + ciphertext) # Encode for easy display
+print("Encrypted data:", encrypted_data)
